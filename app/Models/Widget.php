@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Widget extends Model
 {
     use HasFactory;
+
+    var $timestamps = false;
 }
