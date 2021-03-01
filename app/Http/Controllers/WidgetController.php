@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WidgetCollection;
 use App\Http\Resources\WidgetResource;
 use App\Models\Widget;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class WidgetController extends Controller
     {
         $widgets = Widget::all();
 
-        return WidgetResource::collection($widgets);
+        return new WidgetCollection($widgets);
     }
 
     /**
@@ -36,11 +37,11 @@ class WidgetController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Widget  $widget
-     * @return \Illuminate\Http\Response
+     * @return JsonResource
      */
-    public function show(Widget $widget)
+    public function show(Widget $widget): JsonResource
     {
-        //
+        return new WidgetResource($widget);
     }
 
     /**
