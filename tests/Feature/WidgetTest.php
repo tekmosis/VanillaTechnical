@@ -111,4 +111,27 @@ class WidgetTest extends TestCase
 
         $response->assertStatus(400); // Test description validation for max length
     }
+
+    /**
+     * 'Store' test
+     * [PUT] /api/widgets
+     *
+     * @return void
+     */
+    public function test_update()
+    {
+        $widgetMock = Widget::factory()->create();
+
+        $newName = 'newnametest';
+        $response = $this->patch('/api/widgets/' . $widgetMock->id, ['name' => $newName]);
+
+        $response->assertStatus(200);
+
+        // After the PATCH, fetch data from the 'show' endpoint to verify the update was successful
+        $response = $this->get('/api/widgets/' . $widgetMock->id);
+        $responseData = \json_decode($response->getContent());
+
+        $this->assertSame($newName, $responseData->data->name);
+    }
+
 }
