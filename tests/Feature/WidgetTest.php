@@ -61,6 +61,17 @@ class WidgetTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_index_custom_header()
+    {
+        $response = $this->get('/api/widgets', ['api-token' => $this->apiToken]);
+
+        $xDayHeader = $response->headers->get('x-day');
+
+        $this->assertNotNull($xDayHeader); // Test to ensure our custom header value is included in the response
+
+        $this->assertSame(date('l'), $xDayHeader);
+    }
+
     /**
      * 'Show' test
      * [GET] /api/widgets/$id
