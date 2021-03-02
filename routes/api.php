@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('widgets', WidgetController::class)->only([
     'index',
-    //'store', // POST
+    'store', // POST
     'show', // GET
     //'update', // PUT/PATCH
     //'destroy' // DELETE

@@ -74,4 +74,41 @@ class WidgetTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    /**
+     * 'Store' test
+     * [POST] /api/widgets
+     *
+     * @return void
+     */
+    public function test_store()
+    {
+        $mock = Widget::factory()->make();
+
+        $response = $this->post('/api/widgets',[
+            'name' => $mock->name,
+            'description' => $mock->description,
+        ]);
+        $responseData = \json_decode($response->getContent());
+
+        $this->assertSame($mock->name, $responseData->data->name);
+
+        $response->assertStatus(201);
+    }
+
+    /**
+     * 'Store' test
+     * [POST] /api/widgets
+     *
+     * @return void
+     */
+    public function test_store_with_validation_failure()
+    {
+        $response = $this->post('/api/widgets',[
+            'name' => 'Test Widget 1',
+            'description' => random_bytes(200),
+        ]);
+
+        $response->assertStatus(400); // Test description validation for max length
+    }
 }

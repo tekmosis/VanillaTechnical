@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WidgetPostRequest;
 use App\Http\Resources\WidgetCollection;
 use App\Http\Resources\WidgetResource;
 use App\Models\Widget;
@@ -26,11 +27,16 @@ class WidgetController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResource
      */
-    public function store(Request $request)
+    public function store(WidgetPostRequest $request): JsonResource
     {
-        //
+        $widget = new Widget();
+        $widget->fill($request->toArray());
+
+        $widget->save();
+
+        return WidgetResource::make($widget);
     }
 
     /**

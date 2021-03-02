@@ -10,4 +10,5 @@ class Widget extends Model
     use HasFactory;
 
     var $timestamps = false;
+    var $fillable = ['name', 'description'];
 }
