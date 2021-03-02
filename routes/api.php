@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\WidgetController;
 use App\Http\Middleware\TokenAuthentication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WidgetController;
 
 /*
 |--------------------------------------------------------------------------
