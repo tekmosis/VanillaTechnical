@@ -69,10 +69,9 @@ class WidgetController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Widget  $widget
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Widget $widget)
     {
-        //
+        $widget->delete();
     }
 }

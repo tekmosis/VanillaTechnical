@@ -113,8 +113,8 @@ class WidgetTest extends TestCase
     }
 
     /**
-     * 'Store' test
-     * [PUT] /api/widgets
+     * 'Update' test
+     * [PATCH] /api/widgets/$id
      *
      * @return void
      */
@@ -134,4 +134,39 @@ class WidgetTest extends TestCase
         $this->assertSame($newName, $responseData->data->name);
     }
 
+    /**
+     * 'Destroy' test
+     * [DELETE] /api/widgets/$id
+     *
+     * @return void
+     */
+    public function test_destroy()
+    {
+        $widgetMock = Widget::factory()->create();
+
+        $response = $this->get('/api/widgets/' . $widgetMock->id);
+
+        $response->assertStatus(200); // First, make sure it exists
+
+        $response = $this->delete('/api/widgets/' . $widgetMock->id);
+
+        $response->assertStatus(200);
+
+        $response = $this->get('/api/widgets/' . $widgetMock->id);
+
+        $response->assertStatus(404); // Last, make sure it no longer exists
+    }
+
+    /**
+     * 'Destroy' test
+     * [DELETE] /api/widgets/$id
+     *
+     * @return void
+     */
+    public function test_destroy_failure()
+    {
+        $response = $this->delete('/api/widgets/123456789');
+
+        $response->assertStatus(404);
+    }
 }

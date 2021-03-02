@@ -24,5 +24,5 @@ Route::resource('widgets', WidgetController::class)->only([
     'store', // POST
     'show', // GET
     'update', // PUT/PATCH
-    //'destroy' // DELETE
+    'destroy' // DELETE
 ]);
