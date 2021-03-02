@@ -20,7 +20,7 @@ class WidgetController extends Controller
     {
         $widgets = Widget::all();
 
-        return new WidgetCollection($widgets);
+        return WidgetCollection::make($widgets);
     }
 
     /**
@@ -47,7 +47,7 @@ class WidgetController extends Controller
      */
     public function show(Widget $widget): JsonResource
     {
-        return new WidgetResource($widget);
+        return WidgetResource::make($widget);
     }
 
     /**
